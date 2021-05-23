@@ -4,7 +4,7 @@ import './SortingVisualizer.css';
 import { Button, Jumbotron, Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ANIMATION_SPEED_MS = 1; //valuse of speed of animations
+const ANIMATION_SPEED_MS = 5; //valuse of speed of animations
 
 
 const NUMBER_OF_ARRAY_BARS = 310; // no. of barrs or array of size
