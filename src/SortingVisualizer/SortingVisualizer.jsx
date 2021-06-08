@@ -1,5 +1,5 @@
 import React from 'react';
-import { getMergeSortAnimations } from '../sortingAlgorithms/sortingAlgorithms.js';
+import { getBubbleSortAnimations, getMergeSortAnimations } from '../sortingAlgorithms/sortingAlgorithms.js';
 import './SortingVisualizer.css';
 import { Button, Jumbotron, Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -68,10 +68,52 @@ export default class SortingVisualizer extends React.Component {
 
   // }
 
-  // bubbleSort() {
+  bubbleSort() {
 
-  // }
+    const animations = getBubbleSortAnimations(this.state.array)
+    for(let i = 0; i < animations.length; i++) {
+        
+        const arrayBars = document.getElementsByClassName('array-bar')
+        if(animations[i] === null) continue
 
+        const isColorChange = i%3 !== 2
+        if(isColorChange) {
+
+            const [barOneIdx, barTwoIdx] = animations[i]
+            const barOneStyle = arrayBars[barOneIdx].style
+            const barTwoStyle = arrayBars[barTwoIdx].style
+            const color = i%3 === 0 ? SECONDARY_COLOR : 'turquoise'
+
+            setTimeout(() => {
+                barOneStyle.backgroundColor = color
+                barTwoStyle.backgroundColor = color    
+            }, i * 1)
+        }
+        else {
+    
+            if(animations[i].length === 4) {
+  setTimeout(() => {
+
+    const [barOneIdx, barTwoIdx, newHeight1, newHeight2] = animations[i]
+    const barOneStyle = arrayBars[barOneIdx].style
+    const barTwoStyle = arrayBars[barTwoIdx].style
+    barOneStyle.height = `${newHeight2}px`
+    barTwoStyle.height = `${newHeight1}px`
+    
+}, i * 1)
+        }
+else {
+
+  setTimeout(() => {
+
+    const [barOneIdx, newHeight] = animations[i]
+    const barOneStyle = arrayBars[barOneIdx].style
+    barOneStyle.height = `${newHeight}px`
+  }, i * 1)
+}	
+        }
+    }
+}
 
   // testSortingAlgorithms() {
   //   for (let i = 0; i < 100; i++) {
@@ -98,7 +140,8 @@ export default class SortingVisualizer extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
             <Nav className="justify-content-end">
-              <Button variant="light" onClick={() => this.mergeSort()} style={{ marginLeft: '.20rem' }} size="sm">Merge sort</Button>
+              <Button variant="light" onClick={() => this.mergeSort()} style={{ marginLeft: '.20rem' }} size="sm">Merge Sort</Button>
+              <Button variant="light" onClick={() => this.bubbleSort()} style={{ marginLeft: '.20rem' }} size="sm">Bubble Sort</Button>
               <Button variant="light" onClick={() => this.resetArray()} style={{ marginLeft: '.5rem' }} >Generate new array</Button>
               <Nav.Link href="https://github.com/chuganilokesh" style={{ marginRight: '.5rem' }}>chuganilokesh</Nav.Link>
             </Nav>
